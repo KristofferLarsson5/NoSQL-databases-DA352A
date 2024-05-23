@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Employees</title>
+</head>
+<body>
+    <h1>Employees</h1>
+    <ul>
+        <% employees.forEach(employee => { %>
+            <li><%= employee.name %> - <%= employee.contactDetails %></li>
+        <% }); %>
+    </ul>
+
+    <h1>Customers</h1>
+    <ul>
+        <% customers.forEach(customer => { %>
+            <li>
+                <%= customer.name %> - <%= customer.contactDetails %>
+                <form action="/employee/remove-customer" method="post">
+                    <input type="hidden" name="customerId" value="<%= customer._id %>">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+    
+    <h1>Recipes</h1>
+    <ul>
+        <% recipes.forEach(recipe => { %>
+            <li>
+                Name: <%= recipe.name %><br>
+                <div class="instructions">Instructions: <%= recipe.instructions %></div><br>
+                Origin: <%= recipe.origin %><br>
+                Dietary Restrictions: <%= recipe.dietaryRestrictions.join(', ') %><br>
+                Created By: <%= recipe.createdBy %>
+                <form action="/employee/remove-recipe" method="post">
+                    <input type="hidden" name="recipeId" value="<%= recipe._id %>">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+
+    <h2>Add New Customer</h2>
+    <form action="/employee/add-customer" method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="contactDetails" placeholder="Contact Details" required>
+        <button type="submit">Add Customer</button>
+    </form>
+
+    <h2>Add New Recipe</h2>
+    <form action="/employee/add-recipe" method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="instructions" placeholder="Instructions" required>
+        <input type="text" name="origin" placeholder="Origin" required>
+        <input type="text" name="dietaryRestrictions" placeholder="Dietary Restrictions (comma separated)" required>
+        <input type="text" name="createdBy" placeholder="Created By (Employee ID)" required>
+        <button type="submit">Add Recipe</button>
+    </form>
+</body>
+</html>

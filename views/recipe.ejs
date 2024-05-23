@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Recipe Dashboard</title>
+</head>
+<body>
+    <h1>Recipe Dashboard</h1>
+    
+    <h2>Recipes</h2>
+    <ul>
+        <% recipes.forEach(recipe => { %>
+            <li>Name: <%= recipe.name %><br>
+                <div class="instructions">Instructions: <%= recipe.instructions %></div><br>
+                Origin: <%= recipe.origin %><br>
+                Dietary Restrictions: <%= recipe.dietaryRestrictions.join(', ') %></li>
+        <% }) %>
+    </ul>
+</body>
+</html>

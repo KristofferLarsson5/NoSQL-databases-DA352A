@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Manager</title>
+</head>
+<body>
+    <h1>Managers</h1>
+    <ul>
+        <% managers.forEach(manager => { %>
+            <li><%= manager.name %> - <%= manager.contactDetails %></li>
+        <% }); %>
+    </ul>
+    <h1>Employees</h1>
+    <ul>
+        <% employees.forEach(employee => { %>
+            <li>
+                <%= employee.name %> - <%= employee.contactDetails %>
+                <form action="/manager/remove-employee" method="post">
+                    <input type="hidden" name="employeeId" value="<%= employee._id %>">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+    
+    <h1>Customers</h1>
+    <ul>
+        <% customers.forEach(customer => { %>
+            <li>
+                <%= customer.name %> - <%= customer.contactDetails %>
+                <form action="/manager/remove-customer" method="post">
+                    <input type="hidden" name="customerId" value="<%= customer._id %>">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+    
+    <h1>Recipes</h1>
+    <ul>
+        <% recipes.forEach(recipe => { %>
+            <li>
+                Name: <%= recipe.name %><br>
+                <div class="instructions">Instructions: <%= recipe.instructions %></div><br>
+                Origin: <%= recipe.origin %><br>
+                Dietary Restrictions: <%= recipe.dietaryRestrictions.join(', ') %><br>
+                Created By: <%= recipe.createdBy %>
+                <form action="/manager/remove-recipe" method="post">
+                    <input type="hidden" name="recipeId" value="<%= recipe._id %>">
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+    
+    
+
+<h2>Add New Employee</h2>
+<form action="/manager/add-employee" method="post">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="text" name="contactDetails" placeholder="Contact Details" required>
+    <button type="submit">Add Employee</button>
+</form>
+    
+<h2>Add New Customer</h2>
+<form action="/manager/add-customer" method="post">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="text" name="contactDetails" placeholder="Contact Details" required>
+    <input type="text" name="favorites" placeholder="Enter Recipe IDs (separated by comma)">
+    <button type="submit">Add Customer</button>
+</form>
+
+
+    <h2>Add New Recipe</h2>
+    <form action="/manager/add-recipe" method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="instructions" placeholder="Instructions" required>
+        <input type="text" name="origin" placeholder="Origin" required>
+        <input type="text" name="dietaryRestrictions" placeholder="Dietary Restrictions (comma separated)" required>
+        <button type="submit">Add Recipe</button>
+    </form>
+</body>
+</html>

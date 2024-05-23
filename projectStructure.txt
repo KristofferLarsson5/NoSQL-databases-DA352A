@@ -1,0 +1,65 @@
+my-mongodb-project/
+├── routes/
+│   ├── managerRoutes.js
+│   ├── employeeRoutes.js
+│   ├── customerRoutes.js
+│   └── recipeRoutes.js
+├── controllers/
+│   ├── managerController.js
+│   ├── employeeController.js
+│   ├── customerController.js
+│   └── recipeController.js
+├── app.js
+└── config.js
+
+
+class Manager {
+    + _id: ObjectId
+    + name: String
+    + contactDetails: String
+}
+
+class Employee {
+    + _id: ObjectId
+    + name: String
+    + contactDetails: String
+}
+
+class Customer {
+    + _id: ObjectId
+    + name: String
+    + contactDetails: String
+    + favorites: Recipe[]
+}
+
+class Recipe {
+    + _id: ObjectId
+    + name: String
+    + id: String
+    + instructions: String
+    + origin: String
+    + dietaryRestrictions: String[]
+    + comments: Comment[]
+    + ratings: Rating[]
+    + createdBy: ObjectId
+}
+
+class Comment {
+    + body: String
+    + date: Date
+    + customer: ObjectId
+}
+Manager "*" --> "*" Employee: Manages
+Manager "*" --> "*" Customer: Manages
+Manager "*" --> "*" Recipe: Manages
+
+Employee "*" --> "*" Recipe: Creates
+Customer "*" --> "*" Recipe: Favorites
+Recipe "*" --> "*" Comment: Has
+
+
+@enduml
+
+NICE BAsed on this can u give me a template for nodejs using mongoose
+
+

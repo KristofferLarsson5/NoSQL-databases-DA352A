@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Customer Data</title>
+    
+</head>
+<body>
+    <h1>Enter Customer ID</h1>
+    <form action="/customer" method="GET">
+        <label for="customerId">Customer ID:</label>
+        <input type="text" id="customerId" name="customerId">
+        <button type="submit">Submit</button>
+    </form>
+
+    <% if (customer) { %>
+        <h2>Customer Details</h2>
+        <p>Customer ID: <%= customer._id %></p>
+        <p>Name: <%= customer.name %></p>
+        <p>Contact Details: <%= customer.contactDetails %></p>
+        <p>Your favorite recipes: <%= customer.favorites %></p>
+
+        <h2>Recipes that you can buy</h2>
+        <ul>
+            <% recipes.forEach(recipe => { %>
+                <li>
+                    Name: <%= recipe.name %><br>
+                    Id: <%= recipe._id %><br>
+                    <div class="instructions">Instructions: <%= recipe.instructions %></div><br>
+                    Origin: <%= recipe.origin %><br>
+                    Dietary Restrictions: <%= recipe.dietaryRestrictions.join(', ') %><br>
+                    Comments:
+                    <ul>
+                        <% if (Array.isArray(recipe.comments)) { %>
+                            <% recipe.comments.forEach(comment => { %>
+                                <li>
+                                    <br>
+                                    <strong>Comment:</strong> <%= comment.body %><br>
+                                    <strong>Date:</strong> <%= new Date(comment.date).toLocaleString() %><br>
+                                    <strong>Customer ID of comment:</strong> <%= comment.customer %>
+                                </li>
+                            <% }) %>
+                        <% } else { %>
+                            <li>No comments yet.</li>
+                        <% } %>
+                    </ul>
+                    <form action="/customer/add-comment" method="POST" style="margin-top: 10px;">
+                        <input type="hidden" name="customerId" value="<%= customer._id %>">
+                        <input type="hidden" name="recipeId" value="<%= recipe._id %>">
+                        <label for="comment-<%= recipe._id %>">Add a comment:</label>
+                        <input type="text" id="comment-<%= recipe._id %>" name="comment">
+                        <button type="submit">Add Comment</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+    <% } %>
+</body>
+</html>
