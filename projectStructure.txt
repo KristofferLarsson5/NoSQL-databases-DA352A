@@ -40,7 +40,6 @@ class Recipe {
     + origin: String
     + dietaryRestrictions: String[]
     + comments: Comment[]
-    + ratings: Rating[]
     + createdBy: ObjectId
 }
 
@@ -60,6 +59,5 @@ Recipe "*" --> "*" Comment: Has
 
 @enduml
 
-NICE BAsed on this can u give me a template for nodejs using mongoose
 
 
